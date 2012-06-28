@@ -13,11 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import com.cloudmine.api.SimpleCMObject;
-import com.cloudmine.api.UserCMWebService;
 import com.cloudmine.api.rest.AndroidCMWebService;
+import com.cloudmine.api.rest.UserCMWebService;
 import com.cloudmine.api.rest.callbacks.CMResponseCallback;
+import com.cloudmine.api.rest.callbacks.Callback;
 import com.cloudmine.api.rest.callbacks.SimpleCMObjectResponseCallback;
-import com.cloudmine.api.rest.callbacks.WebServiceCallback;
 import com.cloudmine.api.rest.response.CMResponse;
 import com.cloudmine.api.rest.response.SimpleCMObjectResponse;
 
@@ -35,11 +35,11 @@ public class TaskListView extends ListActivity {
     private static final int LOG_OUT = 2;
     private static final int DELETE_COMPLETED = 3;
 
-    private final WebServiceCallback updateListContentsCallback = new SimpleCMObjectResponseCallback() {
+    private final Callback updateListContentsCallback = new SimpleCMObjectResponseCallback() {
 
         @Override
         public void onCompletion(SimpleCMObjectResponse response) {
-            dataAdapter.setListContents(response.objects());
+            dataAdapter.setListContents(response.getObjects());
         }
 
         @Override
@@ -48,7 +48,7 @@ public class TaskListView extends ListActivity {
         }
     };
 
-    private final WebServiceCallback loadAllTasksCallback = new CMResponseCallback() {
+    private final Callback loadAllTasksCallback = new CMResponseCallback() {
         public void onCompletion(CMResponse response) {
             loadAllTasks();
         }
